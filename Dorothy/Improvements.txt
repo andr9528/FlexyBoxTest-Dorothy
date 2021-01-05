@@ -1,0 +1,28 @@
+Todo:
+
+- Create Wpf Interface
+	- Create Search Tap
+		- Input for Search Term
+		- Dropdown for Search Target
+
+	- Create Result Tap
+		- One Listview for Web Results
+			- Create Web Window
+				- Opens when link in Web Results Listview is clicked.
+				- Shows Website from link.
+		- One Listview for Folder Results
+		- One Listview for Files Results	
+	- Create Statistics Tap
+		- Contains Listview with history of searches
+		- Shows Simple informations
+		- Opens new windows when a search is clicked, with more information
+
+- Create Search method for websearch in SearchController
+- Create Search method for files/folder search in SearchControllerProxy
+
+Future Improvements:
+
+- More Exception catching and handleing
+- Unit Testing of the whole solution
+	- As Individual Parts
+	- As integrated System
