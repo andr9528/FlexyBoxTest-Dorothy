@@ -10,7 +10,9 @@ namespace Dorothy.Core.Models
     /// </summary>
     public interface IResultString : IEntity
     {
-        string Value { get; set; }
+        string Title { get; set; }
+        string Link { get; set; }
+        string Snippet { get; set; }
         IResult Result { get; set; }
         int ResultId { get; set; }
     }

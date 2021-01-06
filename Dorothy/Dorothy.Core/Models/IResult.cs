@@ -13,6 +13,7 @@ namespace Dorothy.Core.Models
     {
         ResultType ResultType { get; set; }
         IEnumerable<IResultString> Results { get; set; }
+        int RetrievedResults { get; }
         int ToltalResults { get; set; }
         ISearch Search { get; set; }
         int SearchId { get; set; }

@@ -17,6 +17,9 @@ namespace Dorothy.Proxy.Models
         public int Id { get; set; }
         public byte[] Version { get; set; }
 
+        [JsonIgnore]
+        public int RetrievedResults => ((List<IResultString>)Results).Count;
+
         /// <summary>
         /// Used to tell any code generating a version of this class from Json or similar, which implementation of IResultString and ISearch to use.
         /// </summary>

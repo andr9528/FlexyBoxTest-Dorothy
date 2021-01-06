@@ -17,7 +17,6 @@ Todo:
 		- Shows Simple informations
 		- Opens new windows when a search is clicked, with more information
 
-- Create Search method for websearch in SearchController
 - Create Search method for files/folder search in SearchControllerProxy
 
 Future Improvements:

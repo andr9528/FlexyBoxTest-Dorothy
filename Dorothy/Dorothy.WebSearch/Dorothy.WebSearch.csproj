@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.49.0.2084" />
+    <PackageReference Include="Google.Apis.CustomSearchAPI.v1" Version="1.49.0.2173" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Wolf.Utility.Core\Wolf.Utility.Core\Wolf.Utility.Core.csproj" />
     <ProjectReference Include="..\Dorothy.Core\Dorothy.Core.csproj" />
   </ItemGroup>

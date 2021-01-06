@@ -17,6 +17,8 @@ namespace Dorothy.WebSearch.Models
         public int SearchId { get; set; }
         public int Id { get; set; }
         public byte[] Version { get; set; }
+        [JsonIgnore]
+        public int RetrievedResults => ((List<IResultString>)Results).Count;
 
         /// <summary>
         /// Used to tell any code generating a version of this class from Json, which implementation of IResultString and ISearch to use.

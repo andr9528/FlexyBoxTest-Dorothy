@@ -13,11 +13,16 @@ namespace Dorothy.Proxy.Models
         public string SearchTerm { get; set; }
         public int DesiredAmount { get; set; }
         public IEnumerable<IResult> Results { get; set; }
-        public int TermLenght { get; private set; }
-        public int TermLetters { get; private set; }
-        public int TermNumbers { get; private set; }
-        public int TermSymbols { get; private set; }
-        public int TermSpaces { get; private set; }
+        [JsonIgnore]
+        public int TermLenght => SearchTerm.Length;
+        [JsonIgnore]
+        public int TermLetters => SearchTerm.Count(char.IsLetter);
+        [JsonIgnore]
+        public int TermNumbers => SearchTerm.Count(char.IsDigit);
+        [JsonIgnore]
+        public int TermSymbols => SearchTerm.Count(char.IsSymbol);
+        [JsonIgnore]
+        public int TermSpaces => SearchTerm.Count(char.IsWhiteSpace);
         public int Id { get; set; }
         public byte[] Version { get; set; }
         public SearchTarget Target { get; set; }
@@ -28,28 +33,14 @@ namespace Dorothy.Proxy.Models
         /// </summary>
         /// <param name="results"></param>
         [JsonConstructor]
-        public SearchProxy(List<ResultProxy> results, string searchTerm)
+        public SearchProxy(List<ResultProxy> results)
         {
             Results = results;
-            SearchTerm = searchTerm;
-
-            SetStats(searchTerm);
         }
 
-        public SearchProxy(string searchTerm)
+        public SearchProxy()
         {
-            SearchTerm = searchTerm;
 
-            SetStats(searchTerm);
-        }
-
-        private void SetStats(string searchTerm)
-        {
-            TermLenght = searchTerm.Length;
-            TermSpaces = searchTerm.Count(char.IsWhiteSpace);
-            TermNumbers = searchTerm.Count(char.IsDigit);
-            TermLetters = searchTerm.Count(char.IsLetter);
-            TermSymbols = searchTerm.Count(char.IsSymbol);
         }
     }
 }
