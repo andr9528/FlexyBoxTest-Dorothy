@@ -22,7 +22,7 @@ namespace Dorothy.WebSearch.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Result>> GetResults([FromQuery] Search search)
+        public async Task<ActionResult<List<Result>>> GetResults([FromQuery] Search search)
         {
             try
             {
@@ -32,10 +32,10 @@ namespace Dorothy.WebSearch.Controllers
                 if (search.DesiredAmount == default)
                     amount = 10;
 
-                var response = await proxy.Search(search.SearchTerm, amount);
+                var response = await proxy.Search(search.Term, amount);
 
-                var result = new Result() { Results = response.Item1, Search = search, ResultType = Core.Enums.ResultType.Web, ToltalResults = response.Item2 };
-                return Ok(result);
+                var result = new Result() { Results = response.Item1, SearchId = search.Id, ResultType = Core.Enums.ResultType.Web, ToltalResults = response.Item2 };
+                return Ok(new List<Result>() { result});
             }
             catch (Exception e)
             {

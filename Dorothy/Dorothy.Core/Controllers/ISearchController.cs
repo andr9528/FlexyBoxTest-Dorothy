@@ -20,6 +20,6 @@ namespace Dorothy.Core.Controllers
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        Task<ActionResult<TResult>> GetResults(TSearch search);
+        Task<ActionResult<List<TResult>>> GetResults(TSearch search);
     }
 }

@@ -15,6 +15,12 @@ using Wolf.Utility.Core.Web;
 
 namespace Dorothy.WebSearch.Controllers
 {
+    /// <summary>
+    /// Performs Web searches usings Googles CustomsearchService. 
+    /// The Nuget package used for CustomsearchService doesn't support Xamarin.
+    /// As Xamarin can make Web Api request, it can however still use CustomsearchService, by calling an Api that does the search.
+    /// This is just an example as to why having the search on an Api is a benefit.
+    /// </summary>
     public class GoogleProxy
     {
         const string ApiKey = "AIzaSyCTeuWYOhb7BHonC9i2MTf7np4PW32vn6w";

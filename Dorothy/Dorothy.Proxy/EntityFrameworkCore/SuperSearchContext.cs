@@ -3,6 +3,7 @@ using Dorothy.Proxy.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Dorothy.Proxy.EntityFrameworkCore
@@ -15,9 +16,12 @@ namespace Dorothy.Proxy.EntityFrameworkCore
     {
         string DbPath { get; set; }
 
-        public SuperSearchContext(string sqliteFilePath)
+        public SuperSearchContext()
         {
-            DbPath = sqliteFilePath;
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Path.Combine(dir, $"Search.db3");
+
+            DbPath = path;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

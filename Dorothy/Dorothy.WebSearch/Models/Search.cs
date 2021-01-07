@@ -10,22 +10,25 @@ namespace Dorothy.WebSearch.Models
 {
     public class Search : ISearch
     {
-        public string SearchTerm { get; set; }
+        public string Term { get; set; }
         public int DesiredAmount { get; set; }
         public IEnumerable<IResult> Results { get; set; }
         [JsonIgnore]
-        public int TermLenght => SearchTerm.Length;
+        public int TermLenght => Term.Length;
         [JsonIgnore]
-        public int TermLetters => SearchTerm.Count(char.IsLetter);
+        public int TermLetters => Term.Count(char.IsLetter);
         [JsonIgnore]
-        public int TermNumbers => SearchTerm.Count(char.IsDigit);
+        public int TermNumbers => Term.Count(char.IsDigit);
         [JsonIgnore]
-        public int TermSymbols => SearchTerm.Count(char.IsSymbol);
+        public int TermSymbols => Term.Count(char.IsSymbol);
         [JsonIgnore]
-        public int TermSpaces => SearchTerm.Count(char.IsWhiteSpace);
+        public int TermSpaces => Term.Count(char.IsWhiteSpace);
         public int Id { get; set; }
         public byte[] Version { get; set; }
-        public SearchTarget Target { get; set; }
+        public SearchTarget Target { get; set; }      
+        public string Path { get; set; }
+        public bool? IncludeSubFolders { get; set; }
+        public DateTime ExecutedAt { get; set; }
 
 
         /// <summary>

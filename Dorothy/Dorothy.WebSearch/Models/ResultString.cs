@@ -10,12 +10,14 @@ namespace Dorothy.WebSearch.Models
     public class ResultString : IResultString
     {
         public string Title { get; set; }
+        public string Link { get; set; }
+        public string Snippet { get; set; }
+
         public IResult Result { get; set; }
         public int ResultId { get; set; }
         public int Id { get; set; }
         public byte[] Version { get; set; }
-        public string Link { get; set; }
-        public string Snippet { get; set; }
+        public string Path { get; set; }
 
         /// <summary>
         /// Used to tell any code generating a version of this class from Json, which implementation of IResult to use.
