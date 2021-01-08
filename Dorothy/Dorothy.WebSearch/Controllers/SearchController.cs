@@ -26,6 +26,7 @@ namespace Dorothy.WebSearch.Controllers
         {
             try
             {
+                Logger.LogInformation($"Received Search Request; Search Term = {search.Term}", search);
                 var proxy = new GoogleProxy();
 
                 var amount = search.DesiredAmount;
@@ -34,7 +35,7 @@ namespace Dorothy.WebSearch.Controllers
 
                 var response = await proxy.Search(search.Term, amount);
 
-                var result = new Result() { Results = response.Item1, SearchId = search.Id, ResultType = Core.Enums.ResultType.Web, ToltalResults = response.Item2 };
+                var result = new Result() { Results = new List<IResultString>(response.Item1), SearchId = search.Id, ResultType = Core.Enums.ResultType.Web, ToltalResults = response.Item2 };
                 return Ok(new List<Result>() { result});
             }
             catch (Exception e)

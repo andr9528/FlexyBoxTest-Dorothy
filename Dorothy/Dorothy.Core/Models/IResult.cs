@@ -13,7 +13,7 @@ namespace Dorothy.Core.Models
     {
 
         ResultType ResultType { get; set; }
-        IEnumerable<IResultString> Results { get; set; }
+        ICollection<IResultString> Results { get; set; }
         /// <summary>
         /// Is the Total amount of result on the Web. 
         /// For folder/files this is the total amount of folder/files found on the specified path, with or without the subdirectories, depending on the search performed

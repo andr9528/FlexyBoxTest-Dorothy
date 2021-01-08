@@ -50,7 +50,7 @@ namespace Dorothy.Wpf
         /// Also handles the searching on the device. 
         /// Finaly ensures any search performed are saved to database, along with any result that are found. This is done via the Handler.
         /// </summary>
-        public ISearchController<ResultProxy, SearchProxy> SearchController{ get; set;}
+        public SearchControllerProxy SearchController{ get; set;}
 
         private SuperSearchContext Context { get; set; }
     }

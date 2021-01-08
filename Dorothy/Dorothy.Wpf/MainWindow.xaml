@@ -5,8 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dorothy.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Height="450" Width="900">
+    <TabControl>
+        <TabItem Header="Search">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-    </Grid>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" x:Name="PathLabel"
+                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding SearchPath, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <ToggleButton Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="IncludeSubfoldersToggle"
+                              Content="Include Subfolders?" BorderBrush="Red"  Click="IncludeSubfoldersToggle_Click" Foreground="Red" Margin="5"/>
+                
+                <Button Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                        Content="Select Location" Margin="5" x:Name="PathSelectorButton" Click="PathSelectorButton_Click"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="What would you like to search for?" VerticalContentAlignment="Center"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" x:Name="SearchBox"
+                         VerticalAlignment="Center" Margin="5" Background="White" TextAlignment="Left"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="How many should be gathered from the web? (max 100)" VerticalContentAlignment="Center"/>
+                
+                <TextBox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" x:Name="AmountBox"
+                         VerticalAlignment="Center" Margin="5" Background="White" TextAlignment="Left"/>
+
+                <ComboBox Grid.Row="2" Grid.Column="3" Margin="5" x:Name="TargetsDropDown" HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Center" ItemsSource="{Binding Targets}" SelectedIndex="0"/>
+
+                <Button Grid.Row="2" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                        Content="Search" Margin="5" x:Name="ExecuteSearch" Click="ExecuteSearch_Click"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Active Searches"/>
+
+                <ListView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          ItemsSource="{Binding CurrentSearches}"/>
+            </Grid>
+        
+        
+        
+        </TabItem>
+        
+        <TabItem Header="History">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </TabItem>
+        
+        <TabItem Header="Statistics">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

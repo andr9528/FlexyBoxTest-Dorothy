@@ -12,7 +12,7 @@ namespace Dorothy.Proxy.Models
     {
         public string Term { get; set; }
         public int DesiredAmount { get; set; }
-        public IEnumerable<IResult> Results { get; set; }
+        public ICollection<IResult> Results { get; set; }
         [JsonIgnore]
         public int TermLenght => Term.Length;
         [JsonIgnore]
@@ -38,12 +38,30 @@ namespace Dorothy.Proxy.Models
         [JsonConstructor]
         public SearchProxy(List<ResultProxy> results)
         {
-            Results = results;
+            Results = new List<IResult>(results);
         }
 
         public SearchProxy()
         {
 
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+
+            builder.Append($"Search Term = {Term}; ");
+            builder.Append($"Search Target = {Core.Enums.Target.GetSearchTarget(Target)}; ");
+            //if (DesiredAmount != default)
+            //    builder.Append($"Desired Web Results = {DesiredAmount}; ");
+            //if (Target != SearchTarget.Web)
+            //{
+            //    builder.Append($"Search Path = {Path}; ");
+            //    var include = IncludeSubFolders == true ? "Yes" : "No"; 
+            //    builder.Append($"Include Subfolders = {include}; ");
+            //}
+
+            return builder.ToString();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Dorothy.Proxy.Models
     public class ResultProxy : IResult
     {
         public ResultType ResultType { get; set; }
-        public IEnumerable<IResultString> Results { get; set; }
+        public ICollection<IResultString> Results { get; set; }
         public int ToltalResults { get; set; }
         public ISearch Search { get; set; }
         public int SearchId { get; set; }
@@ -18,7 +18,7 @@ namespace Dorothy.Proxy.Models
         public byte[] Version { get; set; }
 
         [JsonIgnore]
-        public int RetrievedResults => ((List<IResultString>)Results).Count;
+        public int RetrievedResults => Results != null ? ((List<IResultString>)Results).Count : 0;
 
         /// <summary>
         /// Used to tell any code generating a version of this class from Json or similar, which implementation of IResultString and ISearch to use.
@@ -29,7 +29,7 @@ namespace Dorothy.Proxy.Models
         public ResultProxy(SearchProxy search, List<ResultStringProxy> results)
         {
             Search = search;
-            Results = results;
+            Results = new List<IResultString>(results);
         }
 
         public ResultProxy()

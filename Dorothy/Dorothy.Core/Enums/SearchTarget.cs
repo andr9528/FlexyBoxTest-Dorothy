@@ -15,7 +15,7 @@ namespace Dorothy.Core.Enums
 
         public static Dictionary<SearchTarget, string> SearchTargetDictionary { get; } = new Dictionary<SearchTarget, string>()
         {
-            { SearchTarget.All, "All"},
+            { SearchTarget.All, "Web, Files And Folders"},
             { SearchTarget.WebAndFiles, "Web And Files"},
             { SearchTarget.WebAndFolder, "Web And Folder"},
             { SearchTarget.FilesAndFolders, "Files And Folders"},
