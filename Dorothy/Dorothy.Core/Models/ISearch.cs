@@ -13,7 +13,7 @@ namespace Dorothy.Core.Models
     {
         string Term { get; set; }
         int DesiredAmount { get; set; }
-        ICollection<IResult> Results { get; set; }
+        List<IResult> Results { get; set; }
         SearchTarget Target { get; set; }
         int TermLenght { get; }
         int TermLetters { get; }

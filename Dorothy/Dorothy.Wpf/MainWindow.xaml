@@ -67,11 +67,18 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+
+                <ToggleButton Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="AllowOpenSearches"
+                              Content="Allow Opening of Clicked Searches?" BorderBrush="Red"  Click="AllowOpenSearches_Click"  Foreground="Red" Margin="5"/>
+
+                <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          ItemsSource="{Binding HistorySearches}" x:Name="HistoryView" SelectionChanged="HistoryView_SelectionChanged"/>
             </Grid>
         </TabItem>
         

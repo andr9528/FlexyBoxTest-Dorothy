@@ -1,4 +1,5 @@
-﻿using Dorothy.Proxy.Models;
+﻿using Dorothy.Core.Models;
+using Dorothy.Proxy.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

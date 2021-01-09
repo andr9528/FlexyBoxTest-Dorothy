@@ -1,10 +1,12 @@
 ﻿using Dorothy.Proxy.EntityFrameworkCore.Config;
 using Dorothy.Proxy.Models;
+using EntityFrameworkCore.Triggers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dorothy.Proxy.EntityFrameworkCore
 {
@@ -12,8 +14,11 @@ namespace Dorothy.Proxy.EntityFrameworkCore
     /// I make use of an Sqlite database saved to a file for the sake of the Development Test.
     /// In production it would ofcourse be connect to a MSSQL database or similar, hosted closeby the application.
     /// </summary>
-    public class SuperSearchContext : DbContext
+    public class SuperSearchContext : DbContextWithTriggers
     {
+        public delegate Task SearchesChanged(Task<List<SearchProxy>> searches, EventArgs args);
+        public event SearchesChanged OnSearchesChanged;
+
         string DbPath { get; set; }
 
         public SuperSearchContext()
@@ -22,7 +27,41 @@ namespace Dorothy.Proxy.EntityFrameworkCore
             var path = Path.Combine(dir, $"Search.db3");
 
             DbPath = path;
+
+            SetupTriggers();
         }
+
+        #region Triggers
+        private void SetupTriggers() 
+        {
+            TriggersEnabled = true;
+
+            Triggers<SearchProxy>.Deleted += SearchProxy_Deleted;
+            Triggers<SearchProxy>.Updated += SearchProxy_Updated;
+            Triggers<SearchProxy>.Inserted += SearchProxy_Inserted;            
+        }
+
+        private void SearchProxy_Inserted(IInsertedEntry<SearchProxy, DbContext> obj)
+        {
+            Searches_Changed();
+        }
+
+        private void SearchProxy_Updated(IUpdatedEntry<SearchProxy, DbContext> obj)
+        {
+            Searches_Changed();
+        }
+
+        private void SearchProxy_Deleted(IDeletedEntry<SearchProxy, DbContext> obj)
+        {
+            Searches_Changed();
+        }
+
+        private void Searches_Changed() 
+        {
+            OnSearchesChanged?.Invoke(Searches.ToListAsync(), new EventArgs());
+        }
+
+        #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

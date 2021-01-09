@@ -1,4 +1,5 @@
 ﻿using Dorothy.Core.Enums;
+using Dorothy.Core.Models;
 using Dorothy.Proxy.Models;
 using Dorothy.Wpf.ViewModels;
 using Dorothy.Wpf.Windows;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -39,21 +41,23 @@ namespace Dorothy.Wpf
 
         private void SearchController_OnSearchComplete(SearchProxy search)
         {
-            Dispatcher.Invoke(async () =>
+            Task.Run(async () =>
             {
                 try
                 {
-                    var results = (await Services.Instance.Handler.FindMultiple(new ResultProxy() { SearchId = search.Id })).ToList();
-
-                    var window = new ResultsWindow(results);
-                    window.Show();
+                    var results = await Services.Instance.Handler.FindMultiple(new ResultProxy() { SearchId = search.Id });
+                    
+                    Dispatcher.Invoke(() =>
+                    {
+                        var window = new ResultsWindow((List<ResultProxy>)results);
+                        window.ShowDialog();
+                    });
                 }
                 catch (Exception e)
                 {
-
                     throw;
                 }
-            });
+            });            
 
             // As the one received from the event has been throught the database, and the one in the list hase not, they are different, while still in reality being the same.
             // Matching them on thier ExecutedAt, ensures the correct one is found and removed.
@@ -64,19 +68,7 @@ namespace Dorothy.Wpf
 
         private void IncludeSubfoldersToggle_Click(object sender, RoutedEventArgs e)
         {
-            switch (IncludeSubfoldersToggle.IsChecked)
-            {
-                case true:
-                    IncludeSubfoldersToggle.BorderBrush = new SolidColorBrush(Colors.Green);   
-                    IncludeSubfoldersToggle.Foreground = new SolidColorBrush(Colors.Green);
-                    break;
-                case false:
-                    IncludeSubfoldersToggle.BorderBrush = new SolidColorBrush(Colors.Red);
-                    IncludeSubfoldersToggle.Foreground = new SolidColorBrush(Colors.Red);
-                    break;
-                default:
-                    break;
-            }
+            ColorToggleButton((ToggleButton)sender);
         }
 
         private void PathSelectorButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +172,39 @@ namespace Dorothy.Wpf
                 return false;
             }
             return true;
+        }
+
+        private void AllowOpenSearches_Click(object sender, RoutedEventArgs e)
+        {
+            ColorToggleButton((ToggleButton)sender);
+        }
+
+        private void ColorToggleButton(ToggleButton button) 
+        {
+            switch (button.IsChecked)
+            {
+                case true:
+                    button.BorderBrush = new SolidColorBrush(Colors.Green);
+                    button.Foreground = new SolidColorBrush(Colors.Green);
+                    break;
+                case false:
+                    button.BorderBrush = new SolidColorBrush(Colors.Red);
+                    button.Foreground = new SolidColorBrush(Colors.Red);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void HistoryView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AllowOpenSearches.IsChecked == true) 
+            {
+                var item = (SearchProxy)(HistoryView.SelectedItem);
+                if (item == null) return;
+                var window = new SearchWindow(item);
+                window.Show();
+            }
         }
     }
 

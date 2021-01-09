@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dorothy.Wpf.ViewModels
 {
@@ -20,6 +21,15 @@ namespace Dorothy.Wpf.ViewModels
             Targets = Target.SearchTargetDictionary.Values.ToList();
 
             CurrentSearches = new ObservableCollection<SearchProxy>();
+
+            Task.Run(async () => HistorySearches = new ObservableCollection<SearchProxy>(await Services.Instance.Handler.FindMultiple(new SearchProxy())));
+            Services.Instance.Context.OnSearchesChanged += Context_OnSearchesChanged;
+        }
+
+        private async Task Context_OnSearchesChanged(Task<List<SearchProxy>> searches, EventArgs args)
+        {
+            var newSearches = await searches;
+            HistorySearches = new ObservableCollection<SearchProxy>(newSearches);
         }
 
         string _searchPath = string.Empty;
@@ -43,5 +53,11 @@ namespace Dorothy.Wpf.ViewModels
             set { SetProperty(ref _currentSearches, value); }
         }
 
+        ObservableCollection<SearchProxy> _historySearches = default;
+        public ObservableCollection<SearchProxy> HistorySearches
+        {
+            get { return _historySearches; }
+            set { SetProperty(ref _historySearches, value); }
+        }
     }
 }

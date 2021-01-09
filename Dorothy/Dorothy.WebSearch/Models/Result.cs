@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Dorothy.WebSearch.Models
@@ -11,7 +12,7 @@ namespace Dorothy.WebSearch.Models
     public class Result : IResult
     {
         public ResultType ResultType { get; set; }
-        public ICollection<IResultString> Results { get; set; }
+        public List<IResultString> Results { get; set; }
         public int ToltalResults { get; set; }
         public ISearch Search { get; set; }
         public int SearchId { get; set; }
@@ -35,6 +36,16 @@ namespace Dorothy.WebSearch.Models
         public Result()
         {
 
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+
+            builder.Append($"Result Type = {ResultType}; ");
+            builder.Append($"Toltal Results = {ToltalResults}; ");
+
+            return builder.ToString();
         }
     }
 }

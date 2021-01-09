@@ -52,6 +52,6 @@ namespace Dorothy.Wpf
         /// </summary>
         public SearchControllerProxy SearchController{ get; set;}
 
-        private SuperSearchContext Context { get; set; }
+        public SuperSearchContext Context { get; set; }
     }
 }

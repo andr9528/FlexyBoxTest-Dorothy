@@ -13,7 +13,7 @@ namespace Dorothy.WebSearch.Models
     {
         public string Term { get; set; }
         public int DesiredAmount { get; set; }
-        public ICollection<IResult> Results { get; set; }
+        public List<IResult> Results { get; set; }
         [JsonIgnore]
         public int TermLenght => Term.Length;
         [JsonIgnore]

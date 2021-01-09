@@ -13,7 +13,7 @@ namespace Dorothy.Proxy.EntityFrameworkCore.Config
         {
             base.Configure(builder);
 
-            builder.HasMany(x => (List<ResultStringProxy>)x.Results).WithOne(x => (ResultProxy) x.Result).HasForeignKey(x=>x.ResultId);
+            builder.HasMany(x => (ICollection<ResultStringProxy>)x.Results).WithOne(x => (ResultProxy) x.Result).HasForeignKey(x=>x.ResultId);
 
             builder.Ignore(x => x.RetrievedResults);
         }

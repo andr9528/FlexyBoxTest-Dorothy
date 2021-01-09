@@ -19,7 +19,7 @@ namespace Dorothy.Proxy.EntityFrameworkCore.Config
             builder.Ignore(x => x.TermSymbols);
             builder.Ignore(x => x.TermSpaces);
 
-            builder.HasMany(x => (List<ResultProxy>) x.Results).WithOne(x => (SearchProxy) x.Search).HasForeignKey(x=> x.SearchId);
+            builder.HasMany(x => (ICollection<ResultProxy>) x.Results).WithOne(x => (SearchProxy) x.Search).HasForeignKey(x=> x.SearchId);
         }
     }
 }
