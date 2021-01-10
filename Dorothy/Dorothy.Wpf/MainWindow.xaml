@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dorothy.Wpf"
         mc:Ignorable="d"
-        Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Height="450" Width="900">
+        Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="900">
     <TabControl>
         <TabItem Header="Search">
             <Grid>
@@ -78,7 +78,7 @@
                               Content="Allow Opening of Clicked Searches?" BorderBrush="Red"  Click="AllowOpenSearches_Click"  Foreground="Red" Margin="5"/>
 
                 <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                          ItemsSource="{Binding HistorySearches}" x:Name="HistoryView" SelectionChanged="HistoryView_SelectionChanged"/>
+                          ItemsSource="{Binding Searches}" x:Name="HistoryView" SelectionChanged="HistoryView_SelectionChanged"/>
             </Grid>
         </TabItem>
         
@@ -87,11 +87,126 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                
+                <!--#region Row/Column Labels-->
+                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Lowest" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Average" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Highest" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Total" VerticalContentAlignment="Center"/>
+
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Search Length" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Search Letters" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Search Numbers" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Search Symbols" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Search Spaces" VerticalContentAlignment="Center"/>                
+                <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="File Results" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Folder Results" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="8" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="Web Results" VerticalContentAlignment="Center"/>
+                <!--#endregion-->
+                
+                <!--#region Lowest-->
+                <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LengthLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LettersLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding NumbersLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SymbolsLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SpacesLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FileLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FolderLowest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="8" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding WebLowest}" VerticalContentAlignment="Center"/>
+                <!--#endregion-->
+
+                <!--#region Average-->
+                <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LengthAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LettersAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding NumbersAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SymbolsAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SpacesAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="6" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FileAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FolderAverage}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="8" Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding WebAverage}" VerticalContentAlignment="Center"/>
+                <!--#endregion-->
+
+                <!--#region Highest-->
+                <Label Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LengthHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LettersHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding NumbersHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SymbolsHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SpacesHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="6" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FileHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FolderHighest}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="8" Grid.Column="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding WebHighest}" VerticalContentAlignment="Center"/>
+                <!--#endregion-->
+
+                <!--#region Total-->
+                <Label Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LengthTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding LettersTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding NumbersTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SymbolsTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding SpacesTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="6" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FileTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="7" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding FolderTotal}" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="8" Grid.Column="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding WebTotal}" VerticalContentAlignment="Center"/>
+                <!--#endregion-->
+                
             </Grid>
         </TabItem>
     </TabControl>

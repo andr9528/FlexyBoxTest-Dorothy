@@ -29,23 +29,8 @@ namespace Dorothy.Wpf.Windows
             InitializeComponent();
 
             DataContext = model = new SearchWindowModel(search);
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var results = await Services.Instance.Handler.FindMultiple(new ResultProxy() { SearchId = model.Search.Id });
 
-                    Dispatcher.Invoke(() =>
-                    {
-                        Results = new ResultsWindow((List<ResultProxy>)results);
-                        Results.Closed += Results_Closed;
-                    });
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
-            });
+            CreateResultWindow(search.Term);
         }
 
         private void DeleteSearch_Click(object sender, RoutedEventArgs e)
@@ -82,6 +67,24 @@ namespace Dorothy.Wpf.Windows
         private void Results_Closed(object sender, EventArgs e)
         {
             ExpandResults.IsEnabled = true;
+        }
+
+        private async Task CreateResultWindow(string searchTerm) 
+        {
+            try
+            {
+                var results = await Services.Instance.Handler.FindMultiple(new ResultProxy() { SearchId = model.Search.Id });
+
+                Dispatcher.Invoke(() =>
+                {
+                    Results = new ResultsWindow((List<ResultProxy>)results, searchTerm);
+                    Results.Closed += Results_Closed;
+                });
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }

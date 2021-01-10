@@ -1,19 +1,7 @@
-Todo:
-
-- Create Wpf Interface
-
-
-	- Create Result Tap
-		- One Listview for Web Results
-			- Create Web Window
-				- Opens when link in Web Results Listview is clicked.
-				- Shows Website from link.
-		- One Listview for Folder Results
-		- One Listview for Files Results	
-
 Future Improvements:
 
-- Fix Navigation Properties not Functioning correctly (1 -> *)
+- Fix Navigation Properties not Functioning correctly.
+- Solve Concurrency Issue with database
 - More Exception catching and handleing
 - Unit Testing of the whole solution
 	- As Individual Parts

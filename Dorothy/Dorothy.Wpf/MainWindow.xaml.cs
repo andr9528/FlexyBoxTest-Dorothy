@@ -49,7 +49,7 @@ namespace Dorothy.Wpf
                     
                     Dispatcher.Invoke(() =>
                     {
-                        var window = new ResultsWindow((List<ResultProxy>)results);
+                        var window = new ResultsWindow((List<ResultProxy>)results, search.Term);
                         window.ShowDialog();
                     });
                 }

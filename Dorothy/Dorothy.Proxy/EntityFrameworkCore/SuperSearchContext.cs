@@ -2,6 +2,7 @@
 using Dorothy.Proxy.Models;
 using EntityFrameworkCore.Triggers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,9 @@ namespace Dorothy.Proxy.EntityFrameworkCore
     {
         public delegate Task SearchesChanged(Task<List<SearchProxy>> searches, EventArgs args);
         public event SearchesChanged OnSearchesChanged;
+
+        public delegate Task ResultsChanged(Task<List<ResultProxy>> results, EventArgs args);
+        public event ResultsChanged OnResultsChanged;
 
         string DbPath { get; set; }
 
@@ -38,7 +42,11 @@ namespace Dorothy.Proxy.EntityFrameworkCore
 
             Triggers<SearchProxy>.Deleted += SearchProxy_Deleted;
             Triggers<SearchProxy>.Updated += SearchProxy_Updated;
-            Triggers<SearchProxy>.Inserted += SearchProxy_Inserted;            
+            Triggers<SearchProxy>.Inserted += SearchProxy_Inserted;
+
+            Triggers<ResultProxy>.Deleted += ResultProxy_Deleted;
+            Triggers<ResultProxy>.Updated += ResultProxy_Updated;
+            Triggers<ResultProxy>.Inserted += ResultProxy_Inserted;
         }
 
         private void SearchProxy_Inserted(IInsertedEntry<SearchProxy, DbContext> obj)
@@ -61,7 +69,28 @@ namespace Dorothy.Proxy.EntityFrameworkCore
             OnSearchesChanged?.Invoke(Searches.ToListAsync(), new EventArgs());
         }
 
+        private void ResultProxy_Inserted(IInsertedEntry<ResultProxy, DbContext> obj)
+        {
+            Results_Changed();
+        }
+
+        private void ResultProxy_Updated(IUpdatedEntry<ResultProxy, DbContext> obj)
+        {
+            Results_Changed();
+        }
+
+        private void ResultProxy_Deleted(IDeletedEntry<ResultProxy, DbContext> obj)
+        {
+            Results_Changed();
+        }
+
+        private void Results_Changed() 
+        {
+            OnResultsChanged?.Invoke(Results.ToListAsync(), new EventArgs());
+        }
+
         #endregion
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

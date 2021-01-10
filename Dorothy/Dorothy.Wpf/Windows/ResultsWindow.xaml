@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dorothy.Wpf.Windows"
         mc:Ignorable="d"
-        Title="ResultsWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="Hello"/>
-    </Grid>
+        Title="{Binding Title}" Height="600" Width="900">
+    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" x:Name="WebLabel"
+                         VerticalAlignment="Center" Margin="5" Content="Web Results" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" x:Name="FileLabel"
+                         VerticalAlignment="Center" Margin="5" Content="File Results" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" x:Name="FolderLabel"
+                         VerticalAlignment="Center" Margin="5" Content="Folder Results" VerticalContentAlignment="Center"/>
+
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          ItemsSource="{Binding WebResults}" x:Name="WebListView" SelectionChanged="WebListView_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" Foreground="Black" FontWeight="Bold"
+                                VerticalAlignment="Center" Margin="5" Text="{Binding Title}" />
+                            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" Foreground="Blue"
+                                VerticalAlignment="Center" Margin="5" Text="{Binding Link}"/>
+                            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" TextWrapping="WrapWithOverflow" Foreground="Gray"
+                                VerticalAlignment="Center" Margin="10" Text="{Binding Snippet}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          ItemsSource="{Binding FileResults}" x:Name="FileListView" SelectionChanged="FileListView_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding Path}" VerticalContentAlignment="Center"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          ItemsSource="{Binding FolderResults}" x:Name="FolderListView" SelectionChanged="FolderListView_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                         VerticalAlignment="Center" Margin="5" Content="{Binding Path}" VerticalContentAlignment="Center"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ScrollViewer>    
 </Window>

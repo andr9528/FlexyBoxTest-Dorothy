@@ -19,6 +19,8 @@ namespace Dorothy.Proxy.EntityFrameworkCore
     /// </summary>
     public class SuperSearchHandler : BaseHandler<SuperSearchContext>
     {
+        
+
         public SuperSearchHandler(SuperSearchContext context) : base(context)
         {
         }
