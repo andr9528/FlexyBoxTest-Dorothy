@@ -27,8 +27,8 @@
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" x:Name="PathLabel"
                        VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding SearchPath, UpdateSourceTrigger=PropertyChanged}"/>
                 
-                <ToggleButton Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="IncludeSubfoldersToggle"
-                              Content="Include Subfolders?" BorderBrush="Red"  Click="IncludeSubfoldersToggle_Click" Foreground="Red" Margin="5"/>
+                <ToggleButton Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="IncludeSubfoldersToggle" IsChecked="True"
+                              Content="Include Subfolders?" BorderBrush="Green"  Click="IncludeSubfoldersToggle_Click" Foreground="Green" Margin="5"/>
                 
                 <Button Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                         Content="Select Location" Margin="5" x:Name="PathSelectorButton" Click="PathSelectorButton_Click"/>

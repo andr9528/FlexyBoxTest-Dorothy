@@ -34,17 +34,23 @@ namespace Dorothy.Wpf.Windows
 
         private void WebListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var element = model.WebResults[WebListView.SelectedIndex];
 
+            Clipboard.SetText(element.Link);
         }
 
         private void FileListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var element = model.FileResults[FileListView.SelectedIndex];
 
+            Clipboard.SetText(element.Path);
         }
 
         private void FolderListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var element = model.FolderResults[FolderListView.SelectedIndex];
 
+            Clipboard.SetText(element.Path);
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

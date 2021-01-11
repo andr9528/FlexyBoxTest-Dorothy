@@ -50,7 +50,7 @@ namespace Dorothy.Wpf
                     Dispatcher.Invoke(() =>
                     {
                         var window = new ResultsWindow((List<ResultProxy>)results, search.Term);
-                        window.ShowDialog();
+                        window.Show();
                     });
                 }
                 catch (Exception e)

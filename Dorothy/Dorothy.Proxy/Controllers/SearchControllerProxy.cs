@@ -88,6 +88,7 @@ namespace Dorothy.Proxy.Controllers
                 }
 
                 // Awaits the different tasks, and adds the ResultProxy to database and return list.
+                // A Check to ensure the tasks have completed succefully, would be an possible improvement
                 if (web != null)
                 {
                     var awaitedWeb = await web;

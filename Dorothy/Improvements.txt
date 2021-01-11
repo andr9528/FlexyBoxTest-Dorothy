@@ -1,7 +1,8 @@
 Future Improvements:
 
 - Fix Navigation Properties not Functioning correctly.
-- Solve Concurrency Issue with database
+- Find location where exceptions thrown shown in Output, are being thrown and solve the cause.
+
 - More Exception catching and handleing
 - Unit Testing of the whole solution
 	- As Individual Parts
